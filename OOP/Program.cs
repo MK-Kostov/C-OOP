@@ -264,56 +264,130 @@
 
 
 
-using OOP.DataAccess;
-using System.Diagnostics;
+//using OOP.DataAccess;
+//using System.Diagnostics;
 
-var names = new Names();
-var path = new NamesFilePathBuilder().BuildFilePath();
-var stringsTextualRepository = new StringsTextualRepository();
+//var names = new Names();
+//var path = new NamesFilePathBuilder().BuildFilePath();
+//var stringsTextualRepository = new StringsTextualRepository();
 
 
-if (File.Exists(path))
-{
-	Console.WriteLine("Names file already exists. Loading names.");
-	var stringsFromnFile = stringsTextualRepository.Read(path);
-	names.AddNames(stringsFromnFile);
-}
-else
-{
-	Console.WriteLine("Names file does not yet exist.");
+//if (File.Exists(path))
+//{
+//	Console.WriteLine("Names file already exists. Loading names.");
+//	var stringsFromnFile = stringsTextualRepository.Read(path);
+//	names.AddNames(stringsFromnFile);
+//}
+//else
+//{
+//	Console.WriteLine("Names file does not yet exist.");
 
-	//let's imagine they are given by the user
-	names.AddName("John");
-	names.AddName("not a valid name");
-	names.AddName("Claire");
-	names.AddName("123 definitely not a valid name");
+//let's imagine they are given by the user
+//	names.AddName("John");
+//	names.AddName("not a valid name");
+//	names.AddName("Claire");
+//	names.AddName("123 definitely not a valid name");
 
-	Console.WriteLine("Saving names to a file.");
+//	Console.WriteLine("Saving names to a file.");
 
-	stringsTextualRepository.Write(path, names.All);
+//	stringsTextualRepository.Write(path, names.All);
 
-}
-Console.WriteLine(new NamesFormatter().Format(names.All));
+//}
+//Console.WriteLine(new NamesFormatter().Format(names.All));
+//Console.ReadKey();
+
+
+
+//class NamesFilePathBuilder
+//{
+//	public string BuildFilePath()
+//{
+//we could imagine this is much more complicated,
+//for example provided by the user and validated
+//		return "names.txt";
+//	}
+//}
+
+//class NamesFormatter
+//{
+//	public string Format(List<string> names)
+//	{
+//		return string.Join(Environment.NewLine, names);
+//	}
+//}
+
+//var pizza = new Pizza();
+
+//pizza.AddIngredient(new Cheddar());
+//pizza.AddIngredient(new Mozzarella());
+//pizza.AddIngredient(new TomatoSause());
+
+//Console.WriteLine(pizza.Describe());
+
+var ingredient = new Ingredient();
+ingredient.PublicField = 10;
+
+
+var cheddar = new Cheddar();
+cheddar.PublicField = 20;
+
+Console.WriteLine("Value in ingredient: " + ingredient.PublicField);
+Console.WriteLine("Value in cheddar: " + cheddar.PublicField);
+
+//Console.WriteLine(cheddar.PublicMethod());
+//Console.WriteLine(cheddar.ProtectedMethod());
+//Console.WriteLine(cheddar.PrivateMethod());
+
 Console.ReadKey();
 
-
-
-class NamesFilePathBuilder
+public class Pizza
 {
-	public string BuildFilePath()
+	private List<Ingredient> _ingredients = new List<Ingredient>();
+
+	public void AddIngredient(Ingredient ingredient) =>
+		_ingredients.Add(ingredient);
+
+
+	public string Describe() => $"This is a pizza with {string.Join(", ", _ingredients)}";
+}
+
+public class Ingredient
+{
+	public int PublicField;
+
+	public string PublicMethod() =>
+		"This method is PUBLIC in the Ingredient class.";
+
+	protected string ProtectedMethod() =>
+		"This method is PROTECTED in the Ingredient class.";
+
+	private string PrivateMethod() =>
+		"This method is PRIVATE in the Ingredient class.";
+}
+
+
+public class Cheddar : Ingredient
+{
+	public string Name => "Cheddar cheese";
+	public int AgedForMonths { get; }
+
+	public void UseMethodsFromBaseClass()
 	{
-		//we could imagine this is much more complicated,
-		//for example provided by the user and validated
-		return "names.txt";
+		Console.WriteLine(PublicMethod());
+		Console.WriteLine(ProtectedMethod());
+		//Console.WriteLine(PrivateMethod());
 	}
 }
 
-class NamesFormatter
+public class TomatoSause : Ingredient
 {
-	public string Format(List<string> names)
-	{
-		return string.Join(Environment.NewLine, names);
-	}
+	public string Name => "Tomato sause";
+	public int TomatosIn100Grams { get; }
 }
 
+public class Mozzarella : Ingredient
+{
+	public string Name => "Mozzarella";
+	public bool IsLight { get; }
+}
 
