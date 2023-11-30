@@ -324,70 +324,186 @@
 
 //Console.WriteLine(pizza.Describe());
 
-var ingredient = new Ingredient();
-ingredient.PublicField = 10;
+//var ingredient = new Ingredient();
+//ingredient.PublicField = 10;
 
 
-var cheddar = new Cheddar();
-cheddar.PublicField = 20;
+//var cheddar = new Cheddar();
+//cheddar.PublicField = 20;
 
-Console.WriteLine("Value in ingredient: " + ingredient.PublicField);
-Console.WriteLine("Value in cheddar: " + cheddar.PublicField);
+//Console.WriteLine("Value in ingredient: " + ingredient.PublicField);
+//Console.WriteLine("Value in cheddar: " + cheddar.PublicField);
 
 //Console.WriteLine(cheddar.PublicMethod());
 //Console.WriteLine(cheddar.ProtectedMethod());
 //Console.WriteLine(cheddar.PrivateMethod());
 
+
+//Console.WriteLine("Variable of type Cheddar");
+//Cheddar cheddar = new Cheddar();
+//Console.WriteLine(cheddar.Name);
+
+
+//Console.WriteLine("Variable of type Ingredient");
+//Ingredient ingredient = new Cheddar();
+//Console.WriteLine(ingredient.Name);
+
+//var ingredients = new List<Ingredient>
+//{
+//new Cheddar(),
+//new Mozzarella(),
+//new TomatoSause()
+//};
+
+//foreach (Ingredient ingredient in ingredients)
+//{
+//	Console.WriteLine(ingredient.Name);
+//}
+
+//Console.ReadKey();
+
+//public class Pizza
+//{
+//	private List<Ingredient> _ingredients = new List<Ingredient>();
+
+//	public void AddIngredient(Ingredient ingredient) =>
+//		_ingredients.Add(ingredient);
+
+
+//	public string Describe() => $"This is a pizza with {string.Join(", ", _ingredients)}";
+//}
+
+//public class Ingredient
+//{
+//	public virtual string Name { get; } = "Some ingredient";
+
+//	public int PublicField;
+
+//	public string PublicMethod() =>
+//		"This method is PUBLIC in the Ingredient class.";
+
+//	protected string ProtectedMethod() =>
+//		"This method is PROTECTED in the Ingredient class.";
+
+//	private string PrivateMethod() =>
+//		"This method is PRIVATE in the Ingredient class.";
+//}
+
+
+//public class Cheddar : Ingredient
+//{
+//	public override string Name => "Cheddar cheese";
+//	public int AgedForMonths { get; }
+
+//	public void UseMethodsFromBaseClass()
+//	{
+//		Console.WriteLine(PublicMethod());
+//		Console.WriteLine(ProtectedMethod());
+//		//Console.WriteLine(PrivateMethod());
+//	}
+//}
+
+//public class TomatoSause : Ingredient
+//{
+//	public string Name => "Tomato sause";
+//	public int TomatosIn100Grams { get; }
+//}
+
+//public class Mozzarella : Ingredient
+//{
+//	public override string Name => "Mozzarella";
+//	public bool IsLight { get; }
+//}
+
+var numbers = new List<int> { 1, 4, 6, -1, 12, 44, -8, -19 };
+bool shallAddPositiveOnly = true;
+
+NumbersSumCalculator calculator =
+	shallAddPositiveOnly ?
+	new PositiveNumbersSumCalculator() :
+	new NumbersSumCalculator();
+
+int sum = calculator.Calculate(numbers);
+
+Console.WriteLine("Sum is: " + sum);
 Console.ReadKey();
 
-public class Pizza
+public class NumbersSumCalculator
 {
-	private List<Ingredient> _ingredients = new List<Ingredient>();
-
-	public void AddIngredient(Ingredient ingredient) =>
-		_ingredients.Add(ingredient);
-
-
-	public string Describe() => $"This is a pizza with {string.Join(", ", _ingredients)}";
-}
-
-public class Ingredient
-{
-	public int PublicField;
-
-	public string PublicMethod() =>
-		"This method is PUBLIC in the Ingredient class.";
-
-	protected string ProtectedMethod() =>
-		"This method is PROTECTED in the Ingredient class.";
-
-	private string PrivateMethod() =>
-		"This method is PRIVATE in the Ingredient class.";
-}
-
-
-public class Cheddar : Ingredient
-{
-	public string Name => "Cheddar cheese";
-	public int AgedForMonths { get; }
-
-	public void UseMethodsFromBaseClass()
+	public int Calculate(List<int> numbers)
 	{
-		Console.WriteLine(PublicMethod());
-		Console.WriteLine(ProtectedMethod());
-		//Console.WriteLine(PrivateMethod());
+		int sum = 0;
+		foreach (var number in numbers)
+		{
+			if (ShallBeAdded(number))
+			{
+				sum += number;
+			}
+		}
+		return sum;
+	}
+
+	protected virtual bool ShallBeAdded(int number)
+	{
+		return true;
 	}
 }
 
-public class TomatoSause : Ingredient
+public class PositiveNumbersSumCalculator : NumbersSumCalculator
 {
-	public string Name => "Tomato sause";
-	public int TomatosIn100Grams { get; }
+	protected override bool ShallBeAdded(int number)
+	{
+		return number > 0;
+	}
 }
 
-public class Mozzarella : Ingredient
-{
-	public string Name => "Mozzarella";
-	public bool IsLight { get; }
-}
+//namespace Coding.Exercise
+//{
+//	public class Exercise
+//	{
+//		public List<int> GetCountsOfAnimalsLegs()
+//		{
+//			var animals = new List<Animal>
+//			{
+//				new Lion(),
+//				new Tiger(),
+//				new Duck(),
+//				new Spider()
+//			};
 
+//			var result = new List<int>();
+//			foreach (var animal in animals)
+//			{
+//				result.Add(animal.NumberOfLegs);
+//			}
+//			return result;
+//		}
+//	}
+
+
+
+//	public class Animal
+//	{
+//		public virtual int NumberOfLegs { get; } = 4;
+//	}
+
+//	public class Lion : Animal
+//	{
+//		// Lion has the same number of legs as the base Animal class (4 legs)
+//	}
+
+//	public class Tiger : Animal
+//	{
+//		// Tiger has the same number of legs as the base Animal class (4 legs)
+//	}
+
+//	public class Duck : Animal
+//	{
+//		public override int NumberOfLegs => 2;
+//	}
+
+//	public class Spider : Animal
+//	{
+//		public override int NumberOfLegs => 8;
+//	}
+//}
