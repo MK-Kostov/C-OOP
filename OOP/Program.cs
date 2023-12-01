@@ -322,7 +322,8 @@
 //pizza.AddIngredient(new Mozzarella());
 //pizza.AddIngredient(new TomatoSause());
 
-//Console.WriteLine(pizza.Describe());
+//Console.WriteLine(pizza.ToString());
+
 
 //var ingredient = new Ingredient();
 //ingredient.PublicField = 10;
@@ -336,7 +337,7 @@
 
 //Console.WriteLine(cheddar.PublicMethod());
 //Console.WriteLine(cheddar.ProtectedMethod());
-//Console.WriteLine(cheddar.PrivateMethod());
+////Console.WriteLine(cheddar.PrivateMethod());
 
 
 //Console.WriteLine("Variable of type Cheddar");
@@ -360,6 +361,10 @@
 //	Console.WriteLine(ingredient.Name);
 //}
 
+//var ingredient = new Ingredient(1);
+//var cheddar = new Cheddar(2, 12);
+//Console.WriteLine(cheddar);
+
 //Console.ReadKey();
 
 //public class Pizza
@@ -370,11 +375,18 @@
 //		_ingredients.Add(ingredient);
 
 
-//	public string Describe() => $"This is a pizza with {string.Join(", ", _ingredients)}";
+//	public override string ToString() => $"This is a pizza with {string.Join(", ", _ingredients)}";
 //}
 
 //public class Ingredient
 //{
+//	public Ingredient(int priceIfExtraTopping)
+//	{
+//		Console.WriteLine("Constructor from the Ingredient class");
+//		PriceIfExtraTopping = priceIfExtraTopping;
+//	}
+//	public int PriceIfExtraTopping { get; }
+//	public override string ToString() => Name;
 //	public virtual string Name { get; } = "Some ingredient";
 
 //	public int PublicField;
@@ -389,10 +401,28 @@
 //		"This method is PRIVATE in the Ingredient class.";
 //}
 
+//public class Cheese : Ingredient
+//{
+//	public Cheese(int priceIfExtraTopping) : base(priceIfExtraTopping)
+//	{
+//	}
+//}
+
+//public class ItalianFoodItem
+//{
+//}
+
 
 //public class Cheddar : Ingredient
 //{
-//	public override string Name => "Cheddar cheese";
+//	public Cheddar(int priceIfExtraTopping, int agedForMonths) : base(priceIfExtraTopping)
+//	{
+//		AgedForMonths = agedForMonths;
+//		Console.WriteLine("Constructor from the Cheddar class");
+//	}
+//	public override string Name =>
+//		$"{base.Name}, more specifically, " +
+//		$"a Cheddar cheese aged for {AgedForMonths} months";
 //	public int AgedForMonths { get; }
 
 //	public void UseMethodsFromBaseClass()
@@ -405,57 +435,65 @@
 
 //public class TomatoSause : Ingredient
 //{
+//	public TomatoSause(int priceIfExtraTopping) : base(priceIfExtraTopping)
+//	{
+//	}
+
 //	public string Name => "Tomato sause";
 //	public int TomatosIn100Grams { get; }
 //}
 
-//public class Mozzarella : Ingredient
+//public class Mozzarella : Cheese
 //{
+//	public Mozzarella(int priceIfExtraTopping) : base(priceIfExtraTopping)
+//	{
+//	}
+
 //	public override string Name => "Mozzarella";
 //	public bool IsLight { get; }
 //}
 
-var numbers = new List<int> { 1, 4, 6, -1, 12, 44, -8, -19 };
-bool shallAddPositiveOnly = true;
+//var numbers = new List<int> { 1, 4, 6, -1, 12, 44, -8, -19 };
+//bool shallAddPositiveOnly = true;
 
-NumbersSumCalculator calculator =
-	shallAddPositiveOnly ?
-	new PositiveNumbersSumCalculator() :
-	new NumbersSumCalculator();
+//NumbersSumCalculator calculator =
+//	shallAddPositiveOnly ?
+//	new PositiveNumbersSumCalculator() :
+//	new NumbersSumCalculator();
 
-int sum = calculator.Calculate(numbers);
+//int sum = calculator.Calculate(numbers);
 
-Console.WriteLine("Sum is: " + sum);
-Console.ReadKey();
+//Console.WriteLine("Sum is: " + sum);
+//Console.ReadKey();
 
-public class NumbersSumCalculator
-{
-	public int Calculate(List<int> numbers)
-	{
-		int sum = 0;
-		foreach (var number in numbers)
-		{
-			if (ShallBeAdded(number))
-			{
-				sum += number;
-			}
-		}
-		return sum;
-	}
+//public class NumbersSumCalculator
+//{
+//	public int Calculate(List<int> numbers)
+//	{
+//		int sum = 0;
+//		foreach (var number in numbers)
+//		{
+//			if (ShallBeAdded(number))
+//			{
+//				sum += number;
+//			}
+//		}
+//		return sum;
+//	}
 
-	protected virtual bool ShallBeAdded(int number)
-	{
-		return true;
-	}
-}
+//	protected virtual bool ShallBeAdded(int number)
+//	{
+//		return true;
+//	}
+//}
 
-public class PositiveNumbersSumCalculator : NumbersSumCalculator
-{
-	protected override bool ShallBeAdded(int number)
-	{
-		return number > 0;
-	}
-}
+//public class PositiveNumbersSumCalculator : NumbersSumCalculator
+//{
+//	protected override bool ShallBeAdded(int number)
+//	{
+//		return number > 0;
+//	}
+//}
 
 //namespace Coding.Exercise
 //{
@@ -507,3 +545,87 @@ public class PositiveNumbersSumCalculator : NumbersSumCalculator
 //		public override int NumberOfLegs => 8;
 //	}
 //}
+
+
+
+
+
+//namespace Coding.Exercise
+//{
+//	public class Exercise
+//	{
+//		public List<string> ProcessAll(List<string> words)
+//		{
+//			var stringsProcessors = new List<StringsProcessor>
+//				{
+//					new StringsTrimmingProcessor(),
+//					new StringsUppercaseProcessor()
+//				};
+
+//			List<string> result = words;
+//			foreach (var stringsProcessor in stringsProcessors)
+//			{
+//				result = stringsProcessor.Process(result);
+//			}
+//			return result;
+//		}
+
+//		public class StringsProcessor
+//		{
+//			public virtual List<string> Process(List<string> input)
+//			{
+//				return input;
+//			}
+//		}
+
+//		public class StringsTrimmingProcessor : StringsProcessor
+//		{
+//			public override List<string> Process(List<string> input)
+//			{
+//				List<string> result = new List<string>();
+
+//				foreach (var str in input)
+//				{
+//					int length = str.Length / 2;
+//					result.Add(str.Substring(0, length));
+//				}
+
+//				return result;
+//			}
+//		}
+
+//		public class StringsUppercaseProcessor : StringsProcessor
+//		{
+//			public override List<string> Process(List<string> input)
+//			{
+//				List<string> result = new List<string>();
+
+//				foreach (var str in input)
+//				{
+//					result.Add(str.ToUpper());
+//				}
+
+//				return result;
+//			}
+//		}
+//	}
+//}
+
+
+int seasonNumber = 0;
+Season spring = (Season)seasonNumber;
+
+//decimal a = 10.01m;
+
+int integer = 10;
+decimal b = integer;
+
+Console.ReadKey();
+
+public enum Season
+{
+	Spring,
+	Summer,
+	Autumn,
+	Winter
+}
