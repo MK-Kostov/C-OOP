@@ -364,94 +364,137 @@
 //var ingredient = new Ingredient(1);
 //var cheddar = new Cheddar(2, 12);
 //Console.WriteLine(cheddar);
+Ingredient ingredient = new Cheddar(2, 12);
 
-//Console.ReadKey();
+Ingredient randomIngredient = GenerateRandomIngredient();
+Console.WriteLine("Random ingredient is " + randomIngredient);
 
-//public class Pizza
+Console.WriteLine("is object? " + (ingredient is object));
+Console.WriteLine("is ingredient? " + (ingredient is Ingredient));
+Console.WriteLine("is cheaddar? " + (ingredient is Cheddar));
+Console.WriteLine("is mozzarella? " + (ingredient is Mozzarella));
+Console.WriteLine("is tomato sause? " + (ingredient is TomatoSause));
+
+
+if (randomIngredient is Cheddar cheddar)
+{
+	Console.WriteLine("cheddar object: " + cheddar);
+}
+
+var pizza = new Pizza();
+Console.WriteLine(pizza.ingredient);
+
+Ingredient nullIngredient = null;
+
+//if(nullIngredient != null)
 //{
-//	private List<Ingredient> _ingredients = new List<Ingredient>();
 
-//	public void AddIngredient(Ingredient ingredient) =>
-//		_ingredients.Add(ingredient);
-
-
-//	public override string ToString() => $"This is a pizza with {string.Join(", ", _ingredients)}";
 //}
 
-//public class Ingredient
-//{
-//	public Ingredient(int priceIfExtraTopping)
-//	{
-//		Console.WriteLine("Constructor from the Ingredient class");
-//		PriceIfExtraTopping = priceIfExtraTopping;
-//	}
-//	public int PriceIfExtraTopping { get; }
-//	public override string ToString() => Name;
-//	public virtual string Name { get; } = "Some ingredient";
-
-//	public int PublicField;
-
-//	public string PublicMethod() =>
-//		"This method is PUBLIC in the Ingredient class.";
-
-//	protected string ProtectedMethod() =>
-//		"This method is PROTECTED in the Ingredient class.";
-
-//	private string PrivateMethod() =>
-//		"This method is PRIVATE in the Ingredient class.";
-//}
-
-//public class Cheese : Ingredient
-//{
-//	public Cheese(int priceIfExtraTopping) : base(priceIfExtraTopping)
-//	{
-//	}
-//}
-
-//public class ItalianFoodItem
-//{
-//}
+if (nullIngredient is not null)
+{
+	Console.WriteLine(nullIngredient.Name);
+}
 
 
-//public class Cheddar : Ingredient
-//{
-//	public Cheddar(int priceIfExtraTopping, int agedForMonths) : base(priceIfExtraTopping)
-//	{
-//		AgedForMonths = agedForMonths;
-//		Console.WriteLine("Constructor from the Cheddar class");
-//	}
-//	public override string Name =>
-//		$"{base.Name}, more specifically, " +
-//		$"a Cheddar cheese aged for {AgedForMonths} months";
-//	public int AgedForMonths { get; }
+Console.ReadKey();
 
-//	public void UseMethodsFromBaseClass()
-//	{
-//		Console.WriteLine(PublicMethod());
-//		Console.WriteLine(ProtectedMethod());
-//		//Console.WriteLine(PrivateMethod());
-//	}
-//}
+Ingredient GenerateRandomIngredient()
+{
+	var random = new Random();
+	var number = random.Next(1, 4);
+	if (number == 1) { return new Cheddar(2, 12); }
+	if (number == 2) { return new TomatoSause(1); }
+	else return new Mozzarella(2);
+}
 
-//public class TomatoSause : Ingredient
-//{
-//	public TomatoSause(int priceIfExtraTopping) : base(priceIfExtraTopping)
-//	{
-//	}
+public class Pizza
+{
+	public Ingredient ingredient;
 
-//	public string Name => "Tomato sause";
-//	public int TomatosIn100Grams { get; }
-//}
+	private List<Ingredient> _ingredients = new List<Ingredient>();
 
-//public class Mozzarella : Cheese
-//{
-//	public Mozzarella(int priceIfExtraTopping) : base(priceIfExtraTopping)
-//	{
-//	}
+	public void AddIngredient(Ingredient ingredient) =>
+		_ingredients.Add(ingredient);
 
-//	public override string Name => "Mozzarella";
-//	public bool IsLight { get; }
-//}
+
+	public override string ToString() => $"This is a pizza with {string.Join(", ", _ingredients)}";
+}
+
+public class Ingredient
+{
+	public Ingredient(int priceIfExtraTopping)
+	{
+		Console.WriteLine("Constructor from the Ingredient class");
+		PriceIfExtraTopping = priceIfExtraTopping;
+	}
+	public int PriceIfExtraTopping { get; }
+	public override string ToString() => Name;
+	public virtual string Name { get; } = "Some ingredient";
+
+	public int PublicField;
+
+	public string PublicMethod() =>
+		"This method is PUBLIC in the Ingredient class.";
+
+	protected string ProtectedMethod() =>
+		"This method is PROTECTED in the Ingredient class.";
+
+	private string PrivateMethod() =>
+		"This method is PRIVATE in the Ingredient class.";
+}
+
+public class Cheese : Ingredient
+{
+	public Cheese(int priceIfExtraTopping) : base(priceIfExtraTopping)
+	{
+	}
+}
+
+public class ItalianFoodItem
+{
+}
+
+
+public class Cheddar : Ingredient
+{
+	public Cheddar(int priceIfExtraTopping, int agedForMonths) : base(priceIfExtraTopping)
+	{
+		AgedForMonths = agedForMonths;
+		Console.WriteLine("Constructor from the Cheddar class");
+	}
+	public override string Name =>
+		$"{base.Name}, more specifically, " +
+		$"a Cheddar cheese aged for {AgedForMonths} months";
+	public int AgedForMonths { get; }
+
+	public void UseMethodsFromBaseClass()
+	{
+		Console.WriteLine(PublicMethod());
+		Console.WriteLine(ProtectedMethod());
+		//Console.WriteLine(PrivateMethod());
+	}
+}
+
+public class TomatoSause : Ingredient
+{
+	public TomatoSause(int priceIfExtraTopping) : base(priceIfExtraTopping)
+	{
+	}
+
+	public string Name => "Tomato sause";
+	public int TomatosIn100Grams { get; }
+}
+
+public class Mozzarella : Cheese
+{
+	public Mozzarella(int priceIfExtraTopping) : base(priceIfExtraTopping)
+	{
+	}
+
+	public override string Name => "Mozzarella";
+	public bool IsLight { get; }
+}
 
 //var numbers = new List<int> { 1, 4, 6, -1, 12, 44, -8, -19 };
 //bool shallAddPositiveOnly = true;
@@ -612,20 +655,27 @@
 //}
 
 
-int seasonNumber = 0;
-Season spring = (Season)seasonNumber;
+//int seasonNumber = 0;
+//Season spring = (Season)seasonNumber;
 
-//decimal a = 10.01m;
+////decimal a = 10.01m;
 
-int integer = 10;
-decimal b = integer;
+//int integer = 10;
+//decimal b = integer;
 
-Console.ReadKey();
+////decimal c = 100000000000000000000000.01m;
+////int d = (int)c;
 
-public enum Season
-{
-	Spring,
-	Summer,
-	Autumn,
-	Winter
-}
+//int secondSeasonNumber = 11;
+//Season summer = (Season)secondSeasonNumber;
+//Console.WriteLine(summer);
+
+//Console.ReadKey();
+
+//public enum Season
+//{
+//	Spring,
+//	Summer,
+//	Autumn,
+//	Winter
+//}
