@@ -411,6 +411,7 @@
 //	Console.WriteLine("Conversion failed");
 //}
 
+using OOP.Extensions;
 using System.Threading.Channels;
 
 //Ingredient ingredient = new Ingredient(1);
@@ -432,20 +433,82 @@ foreach (var ingredient in ingredients)
 	ingredient.Prepare();
 }
 
+
+var pizza = RandomPizzaGenerator.Generate(3);
+
+//var multiLineText = @"aaaa
+//bbbb
+//cccc
+//dddd";
+
+//Console.WriteLine("Count of lines is " + multiLineText.CountLines());
+//Console.WriteLine("Count of lines is " + StringExtensions.CountLines(multiLineText));
+
+//Console.WriteLine("Next after spring is " + Season.Spring.Next());
+//Console.WriteLine("Next after winter is " + Season.Winter.Next());
+
+var bakeAbleDishes = new List<object>
+{
+new Pizza(),
+new Panettone()
+
+};
+
+foreach(var bakeAbleDish in bakeAbleDishes)
+{
+    Console.WriteLine(bakeAbleDish.GetInstructions());
+}
+
 Console.ReadKey();
 
-Ingredient GenerateRandomIngredient()
+public abstract class Dessert { }
+
+public abstract class Bakeable
 {
-	var random = new Random();
-	var number = random.Next(1, 4);
-	if (number == 1) { return new Cheddar(2, 12); }
-	if (number == 2) { return new TomatoSause(1); }
-	else return new Mozzarella(2);
+	public abstract string GetInstructions();
 }
+
+public class Panettone : Dessert
+{
+
+}
+
+
+
+
+public static class RandomPizzaGenerator
+{
+	public static Pizza Generate(int howManyIngredients)
+	{
+		var pizza = new Pizza();
+		for (int i = 0; i < howManyIngredients; ++i)
+		{
+			var randomIngredient = GenerateRandomIngredient();
+			pizza.AddIngredient(randomIngredient);
+		}
+
+		return pizza;
+	}
+
+	private static Ingredient GenerateRandomIngredient()
+	{
+		var random = new Random();
+		var number = random.Next(1, 4);
+		if (number == 1) { return new Cheddar(2, 12); }
+		if (number == 2) { return new TomatoSause(1); }
+		else return new Mozzarella(2);
+	}
+}
+
+//public class SpecialRandomPizzaGenerator : RandomPizzaGenerator
+//{
+
+//}
+
 
 public class Pizza
 {
-	public Ingredient ingredient;
+	//public Ingredient ingredient;
 
 	private List<Ingredient> _ingredients = new List<Ingredient>();
 
@@ -530,6 +593,24 @@ public class TomatoSause : Ingredient
 		Console.WriteLine("Cock tomatoes with basil, garlic and salt." +
 			"Spread on pizza.");
 }
+
+public class SpecialTomatoSause : TomatoSause
+{
+	public SpecialTomatoSause(int priceIfExtraTopping) : base(priceIfExtraTopping)
+	{
+	}
+
+	public override void Prepare() =>
+
+		Console.WriteLine("Special tomato sause");
+}
+
+//public class MyBetterString : string
+//{
+
+//}
+
+
 
 public class Mozzarella : Cheese
 {
