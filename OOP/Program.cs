@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Text.Json;
 using System.Threading.Channels;
 using OOP.Animals;
 using OOP.Extensions;
+
 
 
 public class Program
@@ -179,21 +181,21 @@ public class Program
 
 		//Console.ReadKey();
 
-		//var person = new Person()
+		//var person = new person()
 		//{
-		//	Name = "John"
+		//	name = "john"
 		//};
 
 
-		//class Person
+		//class person
 		//{
-		//	public string Name { get; set; }
-		//	public int YearOfBirth { get; init; }
+		//	public string name { get; set; }
+		//	public int yearofbirth { get; init; }
 
-		//public Person(string name, int yearOfBirth)
+		//public person(string name, int yearofbirth)
 		//{
-		//	Name = name;
-		//	YearOfBirth = yearOfBirth;
+		//	name = name;
+		//	yearofbirth = yearofbirth;
 		//}
 		//}
 
@@ -457,17 +459,36 @@ public class Program
 		//Console.WriteLine("Next after winter is " + Season.Winter.Next());
 
 
-		var bakeAbleDishes = new List<IBakeable>
-		{
-			new Pizza(),
-			new Panettone()
+		//var bakeAbleDishes = new List<IBakeable>
+		//{
+		//	new Pizza(),
+		//	new Panettone()
+		//
+		//};
+		//
+		//foreach (var bakeAbleDish in bakeAbleDishes)
+		//{
+		//	Console.WriteLine(bakeAbleDish.GetInstructions());
+		//}
+		//
+		//Console.ReadKey();
 
+
+		var person = new Person
+		{
+			FirstName = "John",
+			LastName = "Smith",
+			YearOfBirth = 1972
 		};
 
-		foreach (var bakeAbleDish in bakeAbleDishes)
-		{
-			Console.WriteLine(bakeAbleDish.GetInstructions());
-		}
+		string asJson = JsonSerializer.Serialize(person);
+		Console.WriteLine("As JSON:");
+		Console.WriteLine(asJson);
+
+		var personJson =
+			"{\"FirstName\":\"John\",\"LastName\":\"Smith\",\"YearOfBirth\":1972}";
+
+		var personFromJson = JsonSerializer.Deserialize<Person>(personJson);
 
 		Console.ReadKey();
 	}
@@ -483,7 +504,6 @@ public class Program
 		public string GetInstructions() =>
 			"Bake at 180 degrees Celsius for 35 minutes.";
 	}
-
 
 
 
@@ -823,6 +843,14 @@ public class Program
 	//	Autumn,
 	//	Winter
 	//}
+
+
+	public class Person
+	{
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public int YearOfBirth { get; set; }
+	}
 }
 
 
