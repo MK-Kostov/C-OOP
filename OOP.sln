@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOP", "OOP\OOP.csproj", "{3CF4D9F1-D491-40A4-AEE4-9E49D40B3CBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOP", "OOP\OOP.csproj", "{3CF4D9F1-D491-40A4-AEE4-9E49D40B3CBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieCookbook", "CookieCookbook\CookieCookbook.csproj", "{048C00D8-AA35-4122-A95C-E75EE54B313B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3CF4D9F1-D491-40A4-AEE4-9E49D40B3CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF4D9F1-D491-40A4-AEE4-9E49D40B3CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CF4D9F1-D491-40A4-AEE4-9E49D40B3CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048C00D8-AA35-4122-A95C-E75EE54B313B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048C00D8-AA35-4122-A95C-E75EE54B313B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048C00D8-AA35-4122-A95C-E75EE54B313B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048C00D8-AA35-4122-A95C-E75EE54B313B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
