@@ -86,18 +86,23 @@ public class IngredientsRegister : IIngredientsRegister
 
 	public Ingredient GetById(int id)
 	{
-		foreach (var ingredient in All)
-		{
-			if (ingredient.Id == id)
+		var allIngredientsWithGivenId = All
+				.Where(ingredient => ingredient.Id == id);
 
-			{
-				return ingredient;
-			}
+		if (allIngredientsWithGivenId.Count() > 1)
+		{
+			throw new InvalidOperationException($"More than one ingredients have ID equal to {id}.");
 		}
-		return null;
+
+		//if (All.Select(ingredient => ingredient.Id).Distinct().Count() != All.Count())
+		//{
+		//	throw new InvalidOperationException($"Some ingredients have duplicated IDs.");
+
+		//}
+
+		return allIngredientsWithGivenId.FirstOrDefault();
 	}
 }
-
 public class RecipesConsoleUserInteraction : IRecipesUserInteraction
 {
 	private readonly IIngredientsRegister _ingredientsRegister;
