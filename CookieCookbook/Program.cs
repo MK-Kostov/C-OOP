@@ -1,5 +1,6 @@
 ﻿using CookieCookbook.Recipes;
 using CookieCookbook.Recipes.Ingredients;
+using System.Diagnostics.Metrics;
 using System.Security.Cryptography.X509Certificates;
 
 var ingredientsRegister = new IngredientsRegister();
@@ -122,14 +123,14 @@ public class RecipesConsoleUserInteraction : IRecipesUserInteraction
 		{
 			Console.WriteLine("Existing recipes are:" + Environment.NewLine);
 
-			var counter = 1;
-			foreach (var recipe in allRecipes)
-			{
-				Console.WriteLine($"*****{counter}*****");
-				Console.WriteLine(recipe);
-				Console.WriteLine();
-				counter++;
-			}
+
+
+			var allRecipesAsStrings = allRecipes.Select((recipe, index) =>
+$@"*****{index + 1}*****
+{recipe}");
+
+			Console.WriteLine(string.Join(Environment.NewLine, allRecipesAsStrings));
+			Console.WriteLine();
 		}
 	}
 
@@ -138,10 +139,7 @@ public class RecipesConsoleUserInteraction : IRecipesUserInteraction
 		Console.WriteLine("Create a new cookie recipe! " +
 			"Available ingredients are: ");
 
-		foreach (var ingredient in _ingredientsRegister.All)
-		{
-			Console.WriteLine(ingredient);
-		}
+		Console.WriteLine(string.Join(Environment.NewLine, _ingredientsRegister.All));
 	}
 
 	public IEnumerable<Ingredient> ReadIngredientsFromUser()
